@@ -2,7 +2,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
 <head>
   <!-- Basic -->
   <meta charset="utf-8" />
@@ -13,12 +12,12 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="">
+  <link rel="shortcut icon" href="../static/images/favicon.png" type="">
 
   <title> CareCoveHealth </title>
 
   <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+  <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" />
 
   <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -27,12 +26,12 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
   <!-- font awesome style -->
-  <link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet" />
+  <link href="../static/css/font-awesome.min.css" rel="stylesheet" />
 
   <!-- Custom styles for this template -->
-  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <link href="../static/css/style.css" rel="stylesheet" />
   <!-- responsive style -->
-  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+  <link href="../static/css/responsive.css" rel="stylesheet" />
 
   <style>
     /* Center the Search Patient by ID form on the page */
@@ -82,7 +81,7 @@
 
   <div class="hero_area">
     <div class="hero_bg_box">
-      <img src="{% static 'images/hero-bg.png' %}" alt="">
+      <img src="../static/images/hero-bg.png" alt="">
     </div>
 
     <header class="header_section">
@@ -101,10 +100,10 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
               <li class="nav-item active">
-                <a class="nav-link" href="{% url 'doctor_home' %}">Home</a>
+                <a class="nav-link" href="doctor/doctor_home.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'doctor_logout' %}">LogOut</a>
+                <a class="nav-link" href="doctor/doctor_logout.html">LogOut</a>
               </li>
             </ul>
           </div>
@@ -118,7 +117,7 @@
   {% if error_message %}
     <p style="color: red;">{{ error_message }}</p>
   {% endif %}
-  <form method="post" action="{% url 'doctor_search_patient' %}">
+  <form method="post" action="doctor/doctor_search_patient.html">
     {% csrf_token %}
     <label for="patient_id">Patient ID:</label>
     <input type="text" name="patient_id" id="patient_id" required>
