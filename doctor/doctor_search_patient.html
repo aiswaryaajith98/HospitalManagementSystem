@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,10 +98,10 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
               <li class="nav-item active">
-                <a class="nav-link" href="doctor/doctor_home.html">Home</a>
+                <a class="nav-link" href="../doctor/doctor_home.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="doctor/doctor_logout.html">LogOut</a>
+                <a class="nav-link" href="../doctor/doctor_logout.html">LogOut</a>
               </li>
             </ul>
           </div>
@@ -117,7 +115,7 @@
   {% if error_message %}
     <p style="color: red;">{{ error_message }}</p>
   {% endif %}
-  <form method="post" action="doctor/doctor_search_patient.html">
+  <form method="post" action="../doctor/doctor_search_patient.html">
     {% csrf_token %}
     <label for="patient_id">Patient ID:</label>
     <input type="text" name="patient_id" id="patient_id" required>
