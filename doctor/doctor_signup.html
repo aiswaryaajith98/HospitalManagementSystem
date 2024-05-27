@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
 <head>
-  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="">
+  <link rel="shortcut icon" href="../static/images/favicon.png" type="">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyFZzfyJb5gi1fFZfGm4nFpPf4YU8fsP9" crossorigin="anonymous">
   <title> CareCoveHealth </title>
   <style>
@@ -132,7 +131,7 @@
 
   <div class="hero_area">
     <div class="hero_bg_box">
-      <img src="{% static 'images/hero-bg.png' %}" alt="">
+      <img src="../static/images/hero-bg.png" alt="">
     </div>
 
     <header class="header_section">
@@ -149,13 +148,13 @@
                 <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'doctor_base' %}">Doctors</a>
+                <a class="nav-link" href="doctor/doctor_base.html">Doctors</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'doctor_signup' %}">Sign Up</a>
+                <a class="nav-link" href="doctor/doctor_signup.html">Sign Up</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'doctor_login' %}">Login&nbsp;&nbsp;&nbsp;</a>
+                <a class="nav-link" href="doctor/doctor_login.html">Login&nbsp;&nbsp;&nbsp;</a>
               </li>
             </ul>
           </div>
@@ -168,7 +167,7 @@
     <div class="signup-container">
       <div class="signup-box">
         <h2><center>Sign Up</center></h2>
-        <form method="post" action="{% url 'doctor_signup' %}" enctype="multipart/form-data">
+        <form method="post" action="doctor/doctor_signup" enctype="multipart/form-data">
           {% csrf_token %}
 
           {% if form.errors %}
