@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background: url("{% static 'images/hero-bg.png' %}") no-repeat center center fixed;
+            background: url("../static/images/hero-bg.png") no-repeat center center fixed;
             background-size: cover;
         }
 
@@ -71,14 +71,14 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="{% url 'reception_signup' %}">Signup</a></li>
-                <li><a href="{% url 'reception_login' %}">Login</a></li>
+                <li><a href="reception/reception_signup">Signup</a></li>
+                <li><a href="reception/reception_login">Login</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        {% block content %}{% endblock %}
+        
     </main>
 
     <footer>
