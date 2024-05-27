@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Patient - My Hospital</title>
+
+    <style>
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
+            background: url('{% static "images/hero-bg.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: #000; /* Change font color to black */
+        }
+
+        .navbar {
+            background-color: rgba(52, 152, 219, 0.7);
+            padding: 10px;
+            text-align: center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 10px;
+        }
+
+        .content {
+            width: 450px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left; /* Align content to the left */
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+            display: grid;
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="{% url 'reception_home' %}">Home</a>
+        <a href="{% url 'reception_logout' %}">Logout</a>
+    </div>
+
+    <div class="content">
+        <h2>Register Patient</h2>
+        <form method="post" action="{% url 'register_patient' %}">
+            {% csrf_token %}
+            <label for="id_name">Name:</label>
+            {{ form.name }}
+            <label for="id_address">Address:</label>
+            {{ form.address }}
+            <label for="id_mobile_number">Mobile Number:</label>
+            {{ form.mobile_number }}
+            <label for="id_email">Email:</label>
+            {{ form.email }}
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+</body>
+</html>

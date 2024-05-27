@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details - My Hospital</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: url('{% static "images/hero-bg.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: rgba(52, 152, 219, 0.7);
+            padding: 10px;
+            text-align: center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 10px;
+        }
+
+        .content {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="{% url 'reception_home' %}" style="text-decoration: none; color: #fff; margin: 0 10px;">Home</a>
+        <a href="{% url 'reception_logout' %}" style="text-decoration: none; color: #fff; margin: 0 10px;">Logout</a>
+    </div>
+
+    <div class="content">
+        <h2>Patient Details</h2>
+        <p>Name: {{ patient.name }}</p>
+        <p>Address: {{ patient.address }}</p>
+        <p>Mobile Number: {{ patient.mobile_number }}</p>
+        <p>Email: {{ patient.email }}</p>
+
+        <h3>Appointment History</h3>
+        {% if appointments %}
+            <ul>
+                {% for appointment in appointments %}
+                    <li>Token Number: {{ appointment.token_number }}</li>
+                    <li>Department: {{ appointment.department.name }}</li>
+                    <li>Doctor: {{ appointment.doctor.name }}</li>
+                    <br>
+                    
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No consulting history available.</p>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!-- reception/signup.html -->
+{% extends 'reception/reception_base.html' %}
+
+{% block title %}Sign Up - My Hospital{% endblock %}
+
+{% block content %}
+  <div style="width: 300px; margin: auto; margin-top: 50px; padding: 20px; background-color: rgba(255, 255, 255, 0.8); border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
+    <h2>Sign Up</h2>
+    <form method="post" action="{% url 'reception_signup' %}" style="display: flex; flex-direction: column; align-items: center;">
+      {% csrf_token %}
+
+      {% if form.errors %}
+        <div style="color: red;">
+            {{ form.errors }}
+        </div>
+      {% endif %}
+      <div style="margin-bottom: 15px; width: 100%;">
+        <label for="{{ form.name.id_for_label }}" style="font-weight: bold; display: block; text-align: left;">Name:</label>
+        {{ form.name }}
+      </div>
+      <div style="margin-bottom: 15px; width: 100%;">
+        <label for="{{ form.phonenumber.id_for_label }}" style="font-weight: bold; display: block; text-align: left;">Phone Number:</label>
+        {{ form.phonenumber }}
+      </div>
+      <div style="margin-bottom: 15px; width: 100%;">
+        <label for="{{ form.username.id_for_label }}" style="font-weight: bold; display: block; text-align: left;">Username:</label>
+        {{ form.username }}
+      </div>
+      <div style="margin-bottom: 15px; width: 100%;">
+        <label for="{{ form.email.id_for_label }}" style="font-weight: bold; display: block; text-align: left;">Email:</label>
+        {{ form.email }}
+      </div>
+      
+
+      <button style="padding: 10px; background-color: #3498db; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;" onmouseover="this.style.backgroundColor='#2980b9'" onmouseout="this.style.backgroundColor='#3498db'">Sign Up</button>
+    </form>
+  </div>
+{% endblock %}
