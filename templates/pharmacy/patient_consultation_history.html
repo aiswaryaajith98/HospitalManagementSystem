@@ -1,0 +1,26 @@
+<!-- pharmacy/patient_consultation_history.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Consultation History</title>
+</head>
+<body>
+    <h1>Patient Consultation History</h1>
+
+    <ul>
+        {% for consultation in consultation_history %}
+            <li>
+                <strong>Date:</strong> {{ consultation.date }}<br>
+                <strong>Doctor:</strong> {{ consultation.doctor.name }}<br>
+                <strong>Department:</strong> {{ consultation.doctor.department.name }}<br>
+                <strong>Illness Reason:</strong> {{ consultation.illness_reason }}<br>
+                <strong>Medicine Name:</strong> {{ consultation.medicine_name }}<br>
+                <strong>Consumption Time:</strong> {{ consultation.consumption_time }}<br>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="">
+
+  <title> CareCoveHealth </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+
+  <style>
+    /* Center the Consultation Page in a box */
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 10px; 
+      font-family: 'Comic Sans MS', cursive;
+
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    select,
+    input,
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="hero_area">
+    <div class="hero_bg_box">
+      <img src="{% static 'images/hero-bg.png' %}" alt="">
+    </div>
+
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="/">
+            <span>
+              CareCoveHealth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+          </a>
+          
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'doctor_home' %}">&nbsp;&nbsp;&nbsp;&nbsp;Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'doctor_appointment_list' %}">Appointment List</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'doctor_logout' %}">LogOut</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+{% block content %}
+  <h2><center>Consultation Page</center></h2>
+
+  <form method="post">
+    {% csrf_token %}
+    
+    
+    <label for="{{ form.patient.id_for_label }}">Patient Name:</label>
+    <select id="{{ form.patient.id_for_label }}" name="{{ form.patient.name }}">
+        <option value="{{ appointment.patient.id }}" selected>{{ appointment.patient.name }}</option>
+        <!-- Add other options here if needed -->
+    </select>
+
+    <!-- Display Doctor Name (editable) -->
+    <label for="{{ form.doctor.id_for_label }}">Doctor Name:</label>
+    <select id="{{ form.doctor.id_for_label }}" name="{{ form.doctor.name }}">
+        <option value="{{ request.user.doctor.id }}" selected>{{ request.user.doctor.name }}</option>
+        <!-- Add other options here if needed -->
+    </select>
+
+
+    <div>
+      <label for="id_illness_reason">Illness Reason:</label>
+      {{ form.illness_reason }}
+    </div>
+
+    <!-- Medicine name field with auto-suggestion -->
+    <div>
+      <label for="id_medicine_name">Medicine Name:</label>
+      <input type="text" id="id_medicine_name" name="medicine_name" list="medicine_list">
+      <datalist id="medicine_list">
+        <option value="Aspirin"></option>
+        <option value="Ibuprofen"></option>
+        <option value="Paracetamol"></option>
+        <option value="Lisinopril"></option>
+        <option value="Atorvastatin"></option>
+        <option value="Metformin"></option>
+        <option value="Simvastatin"></option>
+        <option value="Amlodipine"></option>
+      </datalist>
+    </div>
+
+    <!-- Consumption time field as a dropdown -->
+    <div>
+      <label for="id_consumption_time">Consumption Time:</label>
+      <select id="id_consumption_time" name="consumption_time">
+        <option value="Morning">Morning</option>
+        <option value="Afternoon">Afternoon</option>
+        <option value="Evening">Evening</option>
+        <option value="Night">Night</option>
+      </select>
+    </div>
+
+    <button type="submit">Submit Consultation</button>
+
+    <script>
+      $(document).ready(function () {
+        $('#id_medicine_name').on('input', function () {
+          var inputVal = $(this).val();
+          console.log('Medicine Name input value:', inputVal);
+    
+          var suggestions = ['Aspirin', 'Ibuprofen', 'Paracetamol', 'Lisinopril', /* Add more medicine options here */];
+          var datalistHtml = '';
+          for (var i = 0; i < suggestions.length; i++) {
+            datalistHtml += '<option value="' + suggestions[i] + '">';
+          }
+          $('#medicine_list').html(datalistHtml);
+        });
+    
+        
+      });
+      
+    </script>
+    
+  </form>
+{% endblock %}

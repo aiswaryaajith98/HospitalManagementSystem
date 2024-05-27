@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Appointment Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            background: url('{% static "images/hero-bg.png" %}') no-repeat center center fixed;
+        }
+
+        .navbar {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 10px;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="{% url 'reception_home' %}" style="text-decoration: none; color: #fff; margin: 0 10px;">Home</a>
+        <a href="{% url 'reception_logout' %}" style="text-decoration: none; color: #fff; margin: 0 10px;">Logout</a>
+    </div>
+
+    <div class="content">
+        <h2>Manual Appointment Booking</h2>
+        <p>Enter the patient ID and appointment details below.</p>
+
+        <form method="post" action="{% url 'manual_appointment_booking' %}">
+            {% csrf_token %}
+
+            <label for="patient_id">Patient ID:</label>
+            <input type="text" name="patient_id" id="patient_id" required>
+
+            <br>
+
+            {{ form.as_p }}
+
+            <br>
+
+            <button type="submit">Book Appointment</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Function to update doctor choices based on the selected department
+            function updateDoctorChoices() {
+                var selectedDepartmentId = $('#id_department').val();
+        
+                // Make an AJAX request to fetch doctors for the selected department
+                $.ajax({
+                    type: 'GET',
+                    url: "{% url 'get_doctors' %}",  // Replace with the URL to fetch doctors for a department
+                    data: { 'department_id': selectedDepartmentId },
+                    success: function (data) {
+                        // Update the doctor dropdown with the fetched data
+                        $('#id_doctor').html(data);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error fetching doctors:', error);
+                    }
+                });
+            }
+        
+            // Bind the updateDoctorChoices function to the change event of the department dropdown
+            $('#id_department').on('change', updateDoctorChoices);
+        
+            // Trigger the function on page load if a department is pre-selected
+            updateDoctorChoices();
+        });
+    </script>
+</body>
+</html>

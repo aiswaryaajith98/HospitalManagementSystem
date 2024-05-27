@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="">
+
+  <title> CareCoveHealth </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+
+  <style>
+    /* Style for Patient Details */
+    h2 {
+      text-align: center;
+    }
+
+    .patient-details-box {
+      border: 1px solid rgb(127, 184, 201);
+      padding: 20px;
+      margin: 20px 0;
+      width: 400px;
+      background-color: rgb(87, 196, 181);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      float: left;
+    }
+
+    h3 {
+      font-size: 24px;
+    }
+
+    p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    /* Style for Consultation History Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tbody tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    /* Style for No consultation history message */
+    .no-history {
+      color: #888;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="hero_area">
+    <div class="hero_bg_box">
+      <img src="{% static 'images/hero-bg.png' %}" alt="">
+    </div>
+
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="/">
+            <span>
+              CareCoveHealth
+            </span>
+          </a>
+          
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'pharmacy_home' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pharmacy_search_patient' %}">Search Patient</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pharmacy_logout' %}">LogOut</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+{% block content %}
+  <h2>Patient Details</h2>
+  <h3>Patient Information</h3>
+  <p>ID: {{ patient.patient_id }}</p>
+  <p>Name: {{ patient.name }}</p>
+  <p>Email: {{ patient.email }}</p>
+  <p>Address: {{ patient.address }}</p>
+  <p>Contact: {{ patient.mobile_number }}</p>
+  
+
+  <h3>Consultation History</h3>
+  {% if consultation_history %}
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Doctor</th>
+          <th>Medicine Name</th>
+          <th>Consumption Time</th>
+          <th>Illness Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for consultation in consultation_history %}
+          <tr>
+            <td>{{ consultation.date }}</td>
+            <td>{{ consultation.doctor.name }}</td>
+            <td>{{ consultation.medicine_name }}</td>
+            <td>{{ consultation.consumption_time }}</td>
+            <td>{{ consultation.illness_reason }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No consultation history available.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('{% static "images/hero-bg.png" %}') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: rgba(255, 255, 255, 0.9); /* Add background color with some opacity */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .alert {
+      margin-top: 20px;
+      padding: 15px;
+      color: #721c24;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      border-radius: 4px;
+    }
+
+    .alert ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .alert li {
+      margin-bottom: 5px;
+    }
+
+    /* Add some additional styling to form fields */
+    form input,
+    form select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+
+    /* Style the required asterisk */
+    label[for]:required::before {
+      content: '*';
+      color: red;
+      margin-right: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    {% block content %}
+      <h2>Appointment Form</h2>
+      <form method="post" action="{% url 'appointment_form' patient_id=patient.patient_id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+      </form>
+
+      <script>
+        $(document).ready(function () {
+          function updateDoctorChoices() {
+            var selectedDepartmentId = $('#id_department').val();
+
+            $.ajax({
+              type: 'GET',
+              url: "{% url 'get_doctors' %}",
+              data: { 'department_id': selectedDepartmentId },
+              success: function (data) {
+                $('#id_doctor').html(data);
+              },
+              error: function (xhr, status, error) {
+                console.error('Error fetching doctors:', error);
+              }
+            });
+          }
+
+          $('#id_department').on('change', updateDoctorChoices);
+          updateDoctorChoices();
+        });
+      </script>
+
+    {% endblock %}
+  </div>
+</body>
+</html>

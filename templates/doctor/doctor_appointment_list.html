@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyFZzfyJb5gi1fFZfGm4nFpPf4YU8fsP9" crossorigin="anonymous">
+  <title> CareCoveHealth </title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive;
+    }
+
+    .hero_area {
+      position: relative;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .hero_bg_box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .navbar {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      z-index: 2; 
+    }
+
+    .navbar-brand a {
+      text-decoration: none; 
+    }
+
+    .navbar-brand {
+      font-size: 36px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .navbar-nav .nav-item {
+      margin: 0 15px;
+    }
+
+    .navbar-nav .nav-link {
+      color: #fff;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-decoration: none !important;
+    }
+
+    .appointment-list-container {
+      position: relative;
+      z-index: 2; /* Ensure the container is above the hero image */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      position: relative;
+      z-index: 3; /* Ensure the table is above the hero image and navbar */
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tbody tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="hero_area">
+    <div class="hero_bg_box">
+      <img src="{% static 'images/hero-bg.png' %}" alt="">
+    </div>
+
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="/">
+            <span>
+             &nbsp;&nbsp;&nbsp;CareCoveHealth
+            </span>
+          </a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'doctor_home' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'doctor_logout' %}">LogOut</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="appointment-list-container">
+      {% block content %}
+
+        <h2><center>Appointment List</center></h2>
+        
+        {% if doctor_appointments %}
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Patient</th>
+                <th>Token Number</th>
+                <th>Consultation</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for appointment in doctor_appointments %}
+                <tr {% if appointment.consulted %}style="background-color: lightgreen;"{% endif %}>
+                  <td>{{ appointment.date }}</td>
+                  <td>{{ appointment.patient.name }}</td>
+                  <td>{{ appointment.token_number }}</td>
+                  <td>
+                    {% if appointment.consulted %}
+                      <span style="color: green;">Consulted</span>
+                    {% else %}
+                      <a href="{% url 'consultation_page' appointment_token=appointment.token_number patient_id=appointment.patient.patient_id %}"style="color: red;">Consult</a>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p>No appointments available.</p>
+        {% endif %}
+      {% endblock %}
+    </div>
+
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyFZzfyJb5gi1fFZfGm4nFpPf4YU8fsP9" crossorigin="anonymous"></script>
+</body>
+</html>

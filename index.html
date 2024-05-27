@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+  <link rel="shortcut icon" href="static/images/favicon.png" type="">
+  <title> CareCoveHealth </title>
+  <style>
+      /* Reset some default browser styles */
+      body, h1, h2, h3, p, ul {
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Global Styles */
+      body {
+        font-family: 'Arial', sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #333;
+      }
+
+      .container {
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      /* Header Styles */
+      .header_section {
+        position: relative;
+        padding: 15px 0;
+        
+        background: transparent; /* Set a transparent background */
+        z-index: 2;
+      }
+
+      .hero_area {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero_bg_box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        z-index: 3; /* Ensure the navigation bar appears above the picture */
+       
+      }
+
+      .navbar-brand {
+        font-size: 36px;
+        font-weight: bold;
+        color: #fff; /* Set the text color to white */
+      }
+
+      .navbar-brand.no-underline {
+        text-decoration: none !important; /* Remove the underline */
+      }
+
+      .navbar-nav {
+        display: flex;
+        align-items: center;
+        list-style: none; 
+        padding: 0; 
+        margin: 0;
+        z-index: 3;
+      }
+
+      .navbar-nav .nav-item {
+        margin: 0 15px;
+      }
+
+      .navbar-nav .nav-link {
+        color: #fff; /* Set the text color to white */
+        font-weight: bold;
+        text-transform: uppercase;
+        text-decoration: none !important; 
+      }
+
+      /* Slider Styles */
+      .slider_section {
+        position: relative;
+        height: 500px;
+        overflow: hidden;
+      }
+
+      .carousel-item {
+        background: url('static/images/hero-bg.png') center/cover no-repeat;
+        color: #fff;
+        text-align: center;
+        padding: 100px 0;
+      }
+
+      .detail-box {
+        position: relative;
+        z-index: 2; /* Ensure the text appears above the picture */
+      }
+
+      .detail-box h1,
+      .detail-box p {
+        color: #fff;
+      }
+
+      .btn-box .btn1 {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background: #e8491d;
+        text-decoration: none;
+        margin-top: 20px;
+      }
+
+      /* ... (your existing styles) ... */
+
+      /* Doctor Section Styles */
+      .doctor_section {
+        padding: 80px 0; /* Adjust the padding as needed */
+      }
+
+      .heading_container {
+        text-align: center;
+        margin-bottom: 50px; /* Adjust the margin as needed */
+      }
+
+      .heading_container h2 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px; /* Adjust the margin as needed */
+      }
+
+      .heading_container p {
+        font-size: 16px;
+        color: #555; /* Adjust the text color as needed */
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      .col-sm-6 {
+        flex: 0 0 calc(33.333% - 20px); /* Three columns with some spacing */
+        margin-bottom: 40px; /* Adjust the margin as needed */
+      }
+
+      .box {
+        background: #fff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+      }
+
+      .img-box {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px; /* Adjust the border radius as needed */
+      }
+
+      .img-box img {
+        width: 100%; /* Make the image fill 100% of the container width */
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        border-radius: 8px; /* Adjust the border radius to match the container */
+      }
+
+      .detail-box h5 {
+        font-size: 20px;
+        margin-top: 20px; /* Adjust the margin as needed */
+      }
+
+      .detail-box h6 {
+        font-size: 16px;
+        color: #777; /* Adjust the text color as needed */
+      }
+
+      .btn-box {
+        text-align: center;
+        margin-top: 30px; /* Adjust the margin as needed */
+      }
+
+      .btn-box a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff; /* Adjust the background color as needed */
+        color: #fff; /* Adjust the text color as needed */
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 5px;
+      }
+
+
+
+      /* Contact Section Styles */
+      .contact_section {
+        background: #fff;
+        padding: 50px 0;
+      }
+
+      .contact_section h2 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .form_container input {
+        width: 1200px; /* Set the input width to 100% */
+        max-width: 400px; /* Set a maximum width for better readability, adjust as needed */
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+
+      .message-box {
+        width: 100%; /* Set the width of the message box to 100% */
+        max-width: 400px; /* Set a maximum width for better readability, adjust as needed */
+        height: 100px;
+      }
+
+      .btn_box button {
+        padding: 10px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background: #e8491d;
+        border: none;
+        cursor: pointer;
+      }
+
+
+      /* Footer Styles */
+      .footer_section {
+        background: #222;
+        color: #fff;
+        padding: 50px 0;
+      }
+
+      .footer_col {
+        margin-bottom: 30px;
+      }
+
+      .footer_contact h4 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .contact_link_box a {
+        display: block;
+        margin-bottom: 15px;
+        color: #fff;
+      }
+
+      .footer_social a {
+        font-size: 24px;
+        margin-right: 15px;
+        color: #fff;
+      }
+
+      .footer_link_box h4 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .footer_links a {
+        display: block;
+        margin-bottom: 10px;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .footer_links a.active {
+        font-weight: bold;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 767px) {
+        .navbar-nav {
+          margin-left: 0;
+          margin-top: 15px;
+        }
+
+        .navbar-toggler {
+          margin-top: 15px;
+        }
+
+        .navbar-collapse {
+          background: #fff;
+          margin-top: 15px;
+        }
+
+        .navbar-nav .nav-item {
+          margin: 0;
+          text-align: center;
+        }
+
+        .navbar-nav .nav-link {
+          display: block;
+          padding: 15px;
+          border-bottom: 1px solid #eee;
+        }
+      }
+
+      
+
+  </style>
+</head>
+
+<body>
+
+  <div class="hero_area">
+
+    <div class="hero_bg_box">
+      <img src="static/images/hero-bg.png" alt="">
+    </div>
+
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand no-underline" href="/">
+            <span>
+              CareCoveHealth
+            </span>
+          </a>
+
+          
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'reception_base' %}"> Reception</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pharmacy_base' %}">Pharmacy</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'doctor_base' %}">Doctors</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact Us</a>
+              </li>
+              
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+    <section class="slider_section ">
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-7">
+                  <div class="detail-box">
+                    <h1>
+                      WE PROVIDE BEST HEALTHCARE
+                    </h1>
+                    <p>
+                      CoveCare Hospital is a leading healthcare institution dedicated to providing exceptional medical services and compassionate care to the community. With a commitment to excellence, CoveCare Hospital houses a team of highly skilled healthcare professionals and utilizes state-of-the-art medical technology to deliver comprehensive and personalized treatment. 
+                    <div class="btn-box">
+                      <a href="" class="btn1">
+                        Read More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end slider section -->
+  </div>
+
+  <!-- doctor section -->
+
+  <section class="doctor_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          Our Doctors
+        </h2>
+        <p class="col-md-10 mx-auto px-0">
+          The hospital prioritizes patient well-being and strives to create a healing environment where individuals can receive top-quality medical attention across various specialties. 
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-lg-4 mx-auto">
+          <div class="box">
+            <div class="img-box">
+              <img src="static/images/d1.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+                Elina Josh
+              </h5>
+              <h6 class="">
+                Doctor
+              </h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4 mx-auto">
+          <div class="box">
+            <div class="img-box">
+              <img src="static/images/d2.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+                Adam View
+              </h5>
+              <h6 class="">
+                Doctor
+              </h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4 mx-auto">
+          <div class="box">
+            <div class="img-box">
+              <img src= "static/images/d3.jpg">
+            </div>
+            <div class="detail-box">
+              <h5>
+                Mia Mike
+              </h5>
+              <h6 class="">
+                Doctor
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-box">
+        <a href="">
+          View All
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- end doctor section -->
+
+  <!-- contact section -->
+  <section class="contact_section layout_padding">
+    <div class="container">
+      <div class="heading_container">
+        <h2>
+          Get In Touch
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form_container contact-form">
+            <form action="">
+              <div class="form-row">
+                <div class="col-lg-6">
+                  <div>
+                    <input type="text" placeholder="Your Name" />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div>
+                    <input type="text" placeholder="Phone Number" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <input type="email" placeholder="Email" />
+              </div>
+              <div>
+                <input type="text" class="message-box" placeholder="Message" />
+              </div>
+              <div class="btn_box">
+                <button>
+                  SEND
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="map_container">
+            <div class="map">
+              <div id="googleMap"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end contact section -->
+
+  <!-- footer section -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-lg-3 footer_col">
+          <div class="footer_contact">
+            <h4>
+              Reach at..
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Ambalapuzha,Alappuzha
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +91 8138864082
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  covecarehealth@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+          
+        </div>
+        <div class="col-md-6 col-lg-2 mx-auto footer_col">
+          <div class="footer_link_box">
+            <h4>
+              Links
+            </h4>
+            <div class="footer_links">
+              <a class="active" href="index.html">
+                Home
+              </a>
+              <a class="" href="about.html">
+                About
+              </a>
+              <a class="" href="departments.html">
+                Departments
+              </a>
+              <a class="" href="doctors.html">
+                Doctors
+              </a>
+              <a class="" href="contact.html">
+                Contact Us
+              </a>
+            </div>
+          </div>
+        </div>
+    </div>
+  </footer>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+  <script>
+    function initMap() {
+      var mapCenter = { lat: 37.7749, lng: -122.4194 };
+      var map = new google.maps.Map(document.getElementById('googleMap'), {
+        center: mapCenter,
+        zoom: 15
+      });
+    }
+  </script>
+
+</body>
+
+</html>
